@@ -1,9 +1,9 @@
 CAGE解析チュートリアル
 ====
 
-プロモータ発現テーブルを得るためのCAGE解析パイプラインを用意しています。CAGEデータを各種アライメントソフトウェアでリファレンスゲノムにアライメントしたデータをご用意ください。
+プロモータ発現テーブルを得るためのCAGE解析パイプラインを用意しています。CAGEデータを各種アライメントソフトウェアでリファレンスゲノムにアライメントしたデータをご用意ください。解析結果のデータを閲覧したい場合は、下記からダウンロードすることができます。
 
-- 解析済みデータ  
+- [解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
 
 
 
@@ -54,12 +54,11 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
   
 3. フォルダの作成  
 
+```
 
-% mkdir cage_practice     #cage_practiceフォルダを作成
-% cd cage_practice/         #フォルダへ移動
-% pwd          　　　　　　#現在のディレクトリを確認
-/Users/suimye/cage_practice  
-
+mkdir cage_practice     #cage_practiceフォルダを作成
+cd cage_practice/         #フォルダへ移動
+pwd          　　　　　　#現在のディレクトリを確認
 
 ```
 
