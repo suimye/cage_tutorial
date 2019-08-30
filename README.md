@@ -66,16 +66,34 @@ pwd          　　　　　　#現在のディレクトリを確認
 ### Getting started-CAGEpipeline- 
 ---   
 
-パイプラインのshellスクリプトをダウンロードして、解析を実行する。
-	
+### パイプラインのshellスクリプトをダウンロードして、解析を実行する。
+２つめの引数は、MAPQ（マッピング品質）の閾値を入力する。
 	
 ```
 	git clone https://github.com/suimye/cage.counting.pipeline.sh  
-	~/cage.counting.pipeline.b0.01.sh -f 
+	~/cage.counting.pipeline.b0.01.sh sample.bam 20
+ 
 ```
+
+### CAGEの品質評価の作図と発現テーブル作成  
+argsオプションの後には、比較試験区のラベル（今回はpax4とpax6）をそれぞれ入力する。
+
+```
+R --slave --vanilla --args pax4 pax6 < promoter_mapping_rate.R
+
+```
+
+
+
 
 ### Output files
 
+- cage_count.RData  
+CAGEタグをプロモーター別にカウントしたテーブルを含むRオブジェクト。edgeRライブラリーで解析可能なdgeLオブジェクトが保存されている。  
+- cage.count.txt  
+CAGEタグをプロモーター別の発現量のデータテーブル（log2対数変換済みのCPM値）。    
+- cage.qcbarplot.pdf  
+CAGE解析の品質を評価するために、CAGEタグのプロモーターへの集積率を調べたもの。  
 
 
 
