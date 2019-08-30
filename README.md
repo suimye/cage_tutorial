@@ -5,7 +5,7 @@ CAGE解析チュートリアル
 
 解析結果のデータやテストデータは、下記からダウンロードすることができます。
 
-- [解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
+- [テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
 
 
 
