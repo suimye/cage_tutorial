@@ -31,8 +31,10 @@ rownames(df) <- rname
 # normalization step for CAGE tag counting.
 
 gp <- rep(0,length(fl))
-gp[grep(gp1,fl)] <- 1
-gp[grep(gp2,fl)] <- 2
+for(i in 1:length(unique(fl))){
+	gp[grep(args[i],fl)] <- i
+	#gp[grep(gp2,fl)] <- 2
+}
 size <- df[1,]
 
 # dgeL object construction
@@ -60,18 +62,21 @@ label2_pos <- F5_promoter_count + other_region_count / 2
 
 
 pdf("cage.qcbarplot.pdf", width=10, height=10)
+	#par(mar=c(10,10,10,10))
 	par(mar=c(10,10,10,10))
 	bp <- barplot(
 		barplot_df,
 		horiz=T,
 		main="CAGE QC",
 		xlab="The number of mapped CAGE tags",
-		legend.text=rownames(barplot_df),
-		args.legend=list(cex=0.8,y=1),
+		#legend.text=rownames(barplot_df),
+		#args.legend=list(cex=0.8,y=1),
 		las=1,cex.axis=0.6, cex.names=0.6
 	)
 	text(bp,x=label1_pos, format(paste(prom_per,"%","")), xpd = TRUE, col = "red",cex=0.5)
 	text(bp,x=label2_pos, format(paste(other_per,"%","")), xpd = TRUE, col = "black",cex=0.5)
+	par(xpd=T)
+	legend(par()$usr[2] + 0.4,par()$usr[4] + 0.1,legend=rownames(barplot_df),pch=15,cex=0.4,col=c(colors()[183],colors()[235]))
 dev.off()
 
 q()

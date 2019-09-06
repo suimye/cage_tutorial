@@ -16,8 +16,8 @@
 bamfile=$1
 qval=$2
 
-chromoinfo=~/genome/hg19.genome
-cage_ref=/Users/suimye/cage_practice/hg19.cage.promoter.robust.peak.bed
+chromoinfo=hg19.genome
+cage_ref=hg19.cage.promoter.robust.peak.bed
 
 timestamp=`date +'%y%m%d'`
 fwbg=`mktemp`
