@@ -1,9 +1,9 @@
 CAGE解析チュートリアル
 ====
 
-プロモータ発現テーブルを得るためのCAGE解析パイプラインを用意しています。CAGEデータを各種アライメントソフトウェアでリファレンスゲノムにアライメントしたデータ（BAMファイル）をご用意ください。　　
+プロモータ発現テーブルを得るためのCAGE解析パイプラインを用意しています。CAGEデータを各種アライメントソフトウェアでリファレンスゲノムにアライメントしたデータ（BAMファイル）をご用意ください。
 
-解析結果のデータやテストデータは、下記からダウンロードすることができます。
+#### 解析結果のデータや整形済みテストデータは、こちらからダウンロードすることができます。
 
 - [テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
 
@@ -12,7 +12,6 @@ CAGE解析チュートリアル
 
 ### Software Requirement   
 ---    
-This pipeline requires following tools:  
 
 - wget  
 	
@@ -20,13 +19,13 @@ This pipeline requires following tools:
 	http://genome-test.cse.ucsc.edu/~kent/exe/
 - R  (version 3.5.1 (2018-07-02) -- "Feather Spray")
 	https://www.r-project.org/
-- BEDtools  (version 2.28にて動作確認。2.29についても動作確認済みですが、エラーがでるという報告もあり。)
-	http://code.google.com/p/bedtools/ 
-	
+- BEDtools  (version 2.28にて動作確認。2.29 (latest, 2019.10)についても動作確認済みですが、エラーがでるという報告もあります。現在調査中。)
+	http://code.google.com/p/bedtools/
+    
+  
+  
 ### Data download and preparation
-
-解析テスト用のデータとリファレンスデータをダウンロード    
-
+解析テスト用のデータとリファレンスデータのダウンロード
 
 1. テストデータ  
 
@@ -40,7 +39,7 @@ This pipeline requires following tools:
 
 ```  
 
-ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください（マッピング過程は割愛）。
+ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)にあります。
 
 
 2. 解析に利用するプロモーターのリファレンスデータのダウンロード
@@ -51,7 +50,7 @@ FANTOM5のサイトから、CAGEのプロモーター情報についてダウン
 #FANTOM5 CAGE cluster reference
 
 wget http://fantom.gsc.riken.jp/5/datafiles/latest/extra/CAGE_peaks/hg19.cage_peak_phase1and2combined_coord.bed.gz
-gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,$2,$3,$4,$5,$6}' >hg19.cage.promoter.robust.peak.bed
+gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,$2,$3,$4,$5,$6}' >hg19.cage.promoter.robust.peak.190603.bed
 
 
 ```  
@@ -137,8 +136,7 @@ printf "/Users/suimye/cage_practice/pax4.rep1.bed\n/Users/suimye/cage_practice/p
 
 
 ### 4. enhancer callの実行
-
-bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）が存在するディレクトリ下で以下のshellスクリプトを実行すると、BED6形式のファイルが生成される。
+bidir_enhancersスクリプトを用いてenhancer callを実施する。この時、-mオプションで与えた領域のCAGEクラスターはenhancer callの対象とはならない。
 
 ```
 mkdir pax4_enhancer_call #call結果のファイル置き場
