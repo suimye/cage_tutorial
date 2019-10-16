@@ -39,7 +39,7 @@ CAGE解析チュートリアル
 
 ```  
 
-ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)のフォルダーの中にあるので、必要に応じてご利用ください。
+ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)のフォルダの中にあるので、必要に応じてご利用ください。
 
 
 2. 解析に利用するプロモーターのリファレンスデータのダウンロード
@@ -114,7 +114,7 @@ enhancer call時に、プロモーター領域のCAGEクラスターを同定し
  git clone -b mywork https://github.com/suimye/enhancers.git
 
 ```
-gitに登録していない場合は、gitのURLのサイトからZIP形式でダウンロードすることができるので、CAGE解析フォルダーにダウンロードして、解凍してください。
+gitに登録していない場合は、gitのURLのサイトからZIP形式でダウンロードすることができるので、CAGE解析フォルダにダウンロードして、解凍してください。
 
 
 ### 2. enhancer callのために必要なBEDファイルを作成する
