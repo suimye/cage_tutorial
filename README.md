@@ -39,7 +39,7 @@ CAGE解析チュートリアル
 
 ```  
 
-ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)にあります。
+ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)のフォルダーの中にあるので、必要に応じてご利用ください。
 
 
 2. 解析に利用するプロモーターのリファレンスデータのダウンロード
@@ -70,10 +70,11 @@ pwd          　　　　　　#現在のディレクトリを確認
 ## STEP1: CAGEプロモーター解析パイプラインの実行
 
 ### 1. パイプラインのshellスクリプトをダウンロードして、解析を実行する。
-２つめの引数は、MAPQ（品質評価値）の閾値を入力する。
+引数は、BAMファイル、MAPQ（品質評価値）の閾値、CAGEクラスター領域のリファレンス領域（例ではプロモーター領域）を入力する。
+
 ```
 git clone https://github.com/suimye/cage_tutorial.git
-sh cage.counting.pipeline.b0.01.sh sample.bam 20
+sh cage.counting.pipeline.b0.01.sh sample.bam 20 hg19.cage.promoter.robust.peak.190603.bed
 ```
 
 
@@ -103,8 +104,7 @@ CAGE解析の品質を評価するために、CAGEタグのプロモーターへ
 
 - STEP1のCAGE解析で得られたbedGraph ファイル  (ファイルの末尾がfw.bg, rev.bgのファイル)
 - マスクする領域のBEDファイル（FANTOM5のプロモーターリスト）: hg19.cage.promoter.robust.peak.190603.bed
-enhancer call時に、プロモーター領域のCAGEクラスターを同定しないようにマスクするためのファイルを用意しておく。ここではFANTOM5 phase2のプロモーター情報を用いる。
-[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)から、hg19.cage.promoter.robust.peak.190603.bedを作業フォルダにダウンロードしておく。
+enhancer call時に、プロモーター領域のCAGEクラスターを同定しないようにマスクするためのファイルを用意しておく。ここでは、STEP１で作成したFANTOM5 phase2のプロモーター情報を用いる。
 
 
 ### 1. enhancer callのスクリプトをダウンロード

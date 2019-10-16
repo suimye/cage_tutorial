@@ -12,12 +12,12 @@
 # リファレンス用のFANTOM5のCAGEクラスタ情報
 
 
-#bamfile=/Users/suimye/cage_practice/PAX6_4/pax6.rep1.bam
 bamfile=$1
 qval=$2
+cage_ref=$3
 
 chromoinfo=hg19.genome
-cage_ref=hg19.cage.promoter.robust.peak.bed
+#cage_ref=hg19.cage.promoter.robust.peak.190603.bed
 
 timestamp=`date +'%y%m%d'`
 fwbg=`mktemp`
