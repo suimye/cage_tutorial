@@ -18,9 +18,9 @@ This pipeline requires following tools:
 	
 - bigWigAverageOverBed, bedGraphToBigWig in Kent Utility tools  
 	http://genome-test.cse.ucsc.edu/~kent/exe/
-- R  
+- R  (version 3.5.1 (2018-07-02) -- "Feather Spray")
 	https://www.r-project.org/
-- BEDtools  
+- BEDtools  (version 2.28にて動作確認。2.29についても動作確認済みですが、エラーがでるという報告もあり。)
 	http://code.google.com/p/bedtools/ 
 	
 ### Data download and preparation
@@ -68,14 +68,16 @@ pwd          　　　　　　#現在のディレクトリを確認
 ```
 
 
-## パイプラインの実行  
+## STEP1: CAGEプロモーター解析パイプラインの実行
 
 ### 1. パイプラインのshellスクリプトをダウンロードして、解析を実行する。
 ２つめの引数は、MAPQ（品質評価値）の閾値を入力する。
 ```
-git clone https://github.com/suimye/cage.counting.pipeline.sh   
+git clone https://github.com/suimye/cage_tutorial.git
 sh cage.counting.pipeline.b0.01.sh sample.bam 20
 ```
+
+
 
 ### 2. CAGEの品質評価の作図と発現テーブル作成  
 argsオプションの後には、比較する試験区のラベル（今回はpax4とpax6）をそれぞれ入力する。
@@ -83,8 +85,6 @@ argsオプションの後には、比較する試験区のラベル（今回はp
 ```
 R --slave --vanilla --args pax4 pax6 < promoter_mapping_rate.R
 ```
-
-
 
 
 ### 3. 出力ファイル
@@ -95,6 +95,55 @@ CAGEタグをプロモーター別にカウントしたテーブルを含むRオ
 CAGEタグをプロモーター別の発現量のデータテーブル（log2対数変換済みのCPM値）。    
 - cage.qcbarplot.pdf  
 CAGE解析の品質を評価するために、CAGEタグのプロモーターへの集積率を調べたもの。  
+
+
+## STEP2: De novo enhancer解析
+
+
+#### requirements
+
+- STEP1のCAGE解析で得られたbedGraph ファイル  (ファイルの末尾がfw.bg, rev.bgのファイル)
+- マスクする領域のBEDファイル（FANTOM5のプロモーターリスト）: hg19.cage.promoter.robust.peak.190603.bed
+enhancer call時に、プロモーター領域のCAGEクラスターを同定しないようにマスクするためのファイルを用意しておく。ここではFANTOM5 phase2のプロモーター情報を用いる。
+[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)から、hg19.cage.promoter.robust.peak.190603.bedを作業フォルダにダウンロードしておく。
+
+
+### 1. enhancer callのスクリプトをダウンロード
+
+
+```
+ git clone -b mywork https://github.com/suimye/enhancers.git
+
+```
+gitに登録していない場合は、gitのURLのサイトからZIP形式でダウンロードすることができるので、CAGE解析フォルダーにダウンロードして、解凍してください。
+
+
+### 2. enhancer callのために必要なBEDファイルを作成する
+bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）が存在するディレクトリ下で以下のshellスクリプトを実行すると、BED6形式のファイルが生成される。
+ただし、作業フォルダ内のbedGraphのファイル名の末尾は、.fw.bg, .rev.bgである必要がある。
+
+```
+sh make.bed6.from.bg.sh
+
+```
+
+### 3. BEDファイルのリストを作成する
+2で作成したBEDファイルについて、FULL PATHでリストを作成する。ここでリストアップしたデータを全て用いてenhancer callを実施する。この例では、pax4の繰り返し実験のデータ３つを用いて、enhancer領域の決定を行うための準備をしている。
+
+```
+printf "/Users/suimye/cage_practice/pax4.rep1.bed\n/Users/suimye/cage_practice/pax4.rep2.bed\n/Users/suimye/cage_practice/pax4.rep3.bed\n" >bedlist.pax4.txt
+
+```
+
+
+### 4. enhancer callの実行
+
+bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）が存在するディレクトリ下で以下のshellスクリプトを実行すると、BED6形式のファイルが生成される。
+
+```
+mkdir pax4_enhancer_call #call結果のファイル置き場
+./enhancers/scripts/bidir_enhancers -f bedlist.pax4.txt -m hg19.cage.promoter.robust.peak.190603.bed -o ./pax4_enhancer_call #enhancer callを実行
+```
 
 
 
