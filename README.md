@@ -96,8 +96,9 @@ sh ./cage_tutorial/cage.counting.pipeline.b0.01.sh sample.bam 20 hg19.cage.promo
 
 
 
-### 2. CAGEの品質評価の作図と発現テーブル作成  
-argsオプションの後には、比較する試験区のラベル（今回はpax4とpax6）をそれぞれ入力する。
+### 2. Rを用いたCAGEの品質評価の作図と発現テーブル作成  
+
+promoter_mapping_rate.Rは、先ほどのプロセスで生成されているctss.txtを末尾とするファイルを読み込んで発現データテーブルを作成する。ここで、作業フォルダに余計なctss.txtファイルがあるとエラーを起こすので注意すること。argsオプションの後には、比較する試験区のラベル（今回はpax4とpax6）をそれぞれ入力する。
 
 ```
 R --slave --vanilla --args pax4 pax6 < ./cage_tutorial/promoter_mapping_rate.R
