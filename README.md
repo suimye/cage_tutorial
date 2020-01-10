@@ -60,8 +60,15 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
 
 ```  
 
+3. その他の準備するべきデータ
+
+hg19.genomeファイルをダウンロードしておく
+
+- [テストデータおよび解析済みデータとその他の必要なデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
+
+
   
-3. 解析用フォルダの作成  
+4. 解析用フォルダの作成  
 
 ```
 
@@ -134,6 +141,8 @@ bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）�
 sh ./cage_practice/make.bed6.from.bg.sh
 
 ```
+
+
 
 ### 3. BEDファイルのリストを作成する
 2で作成したBEDファイルについて、FULL PATHでリストを作成する。ここでリストアップしたデータを全て用いてenhancer callを実施する。この例では、pax4の繰り返し実験のデータ３つを用いて、enhancer領域の決定を行うための準備をしている。ここで書かれているパスは一例なので、用意したBEDファイルのファイルパスに置き換えてください。
