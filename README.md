@@ -14,8 +14,9 @@ CAGE解析チュートリアル
 - update情報欄を作成  
 
 
-### Software Requirement   
----    
+## 事前準備　　
+
+### Software Requirement     
 
 - wget  
 	
@@ -31,7 +32,7 @@ CAGE解析チュートリアル
 ### Data download and preparation
 解析テスト用のデータとリファレンスデータのダウンロード
 
-1. テストデータ  
+1. テストデータダウンロード
 
 ```  
  vdb-dump  -I -f fastq DRR021905 >pax4_rep1.fq
@@ -46,7 +47,7 @@ CAGE解析チュートリアル
 ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)のフォルダの中にあるので、必要に応じてご利用ください。
 
 
-2. 解析に利用するプロモーターのリファレンスデータのダウンロード
+2. プロモーターのリファレンスデータのダウンロード  
 FANTOM5のサイトから、CAGEのプロモーター情報についてダウンロードします。ダウンロードしたファイルのゲノム座標はhg19に基づいています。
 
 ```  
@@ -73,7 +74,7 @@ pwd          　　　　　　#現在のディレクトリを確認
 ```
 
 
-## STEP1: CAGEプロモーター解析パイプラインの実行
+## CAGEプロモーター解析パイプラインの実行
 
 ### 1. パイプラインのshellスクリプトをダウンロードして、解析を実行する。
 引数は、BAMファイル、MAPQ（品質評価値）の閾値、CAGEクラスター領域のリファレンス領域（例ではプロモーター領域）を入力する。
@@ -103,12 +104,12 @@ CAGEタグをプロモーター別の発現量のデータテーブル（log2対
 CAGE解析の品質を評価するために、CAGEタグのプロモーターへの集積率を調べたもの。  
 
 
-## STEP2: De novo enhancer解析
+## Option: De novo enhancer解析
 
 
 #### requirements
 
-- STEP1のCAGE解析で得られたbedGraph ファイル  (ファイルの末尾がfw.bg, rev.bgのファイル)
+- CAGE解析パイプラインで得られたbedGraph ファイル  (ファイルの末尾がfw.bg, rev.bgのファイル)
 - マスクする領域のBEDファイル（FANTOM5のプロモーターリスト）: hg19.cage.promoter.robust.peak.190603.bed
 enhancer call時に、プロモーター領域のCAGEクラスターを同定しないようにマスクするためのファイルを用意しておく。ここでは、STEP１で作成したFANTOM5 phase2のプロモーター情報を用いる。
 
