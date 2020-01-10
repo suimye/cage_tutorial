@@ -131,7 +131,7 @@ bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）�
 ただし、作業フォルダ内のbedGraphのファイル名の末尾は、.fw.bg, .rev.bgである必要がある。
 
 ```
-sh 。・cage_practice/make.bed6.from.bg.sh
+sh ./cage_practice/make.bed6.from.bg.sh
 
 ```
 
