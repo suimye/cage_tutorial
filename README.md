@@ -67,6 +67,7 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
 
 mkdir cage_practice     #cage_practiceフォルダを作成
 mv hg19.cage.promoter.robust.peak.190603.bed cage_practice/  #先ほどのファイルをcage_practiceフォルダに移動させる
+mv *.fq cage_practice/
 cd cage_practice/         #フォルダへ移動
 pwd          　　　　　　#現在のディレクトリを確認
 
