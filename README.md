@@ -75,6 +75,7 @@ hg19.genomeファイルをダウンロードしておく
 mkdir cage_practice     #cage_practiceフォルダを作成
 mv hg19.cage.promoter.robust.peak.190603.bed cage_practice/  #先ほどのファイルをcage_practiceフォルダに移動させる
 mv *.fq cage_practice/
+mv hg19.genome cage_practice/
 cd cage_practice/         #フォルダへ移動
 pwd          　　　　　　#現在のディレクトリを確認
 
