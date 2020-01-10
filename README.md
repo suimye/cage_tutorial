@@ -10,8 +10,8 @@ CAGE解析チュートリアル
 ### Update information 
 
 
-- 2020.01.10: フォルダ作成後に、FANTOMリファレンスのBEDファイルを移動させる行を追記。　　
-- update情報欄を作成  
+- 2020.01.10: update情報欄を作成、CAGEパイプラインへの実行パスを修正。フォルダ作成後に、FANTOMリファレンスのBEDファイルを移動させる行を追記。　　
+-  
 
 
 ## 事前準備　　
@@ -82,7 +82,8 @@ pwd          　　　　　　#現在のディレクトリを確認
 
 ```
 git clone https://github.com/suimye/cage_tutorial.git
-sh cage.counting.pipeline.b0.01.sh sample.bam 20 hg19.cage.promoter.robust.peak.190603.bed
+chmod 755 ./cage_tutorial/*
+sh ./cage_tutorial/cage.counting.pipeline.b0.01.sh sample.bam 20 hg19.cage.promoter.robust.peak.190603.bed
 ```
 
 
@@ -91,7 +92,7 @@ sh cage.counting.pipeline.b0.01.sh sample.bam 20 hg19.cage.promoter.robust.peak.
 argsオプションの後には、比較する試験区のラベル（今回はpax4とpax6）をそれぞれ入力する。
 
 ```
-R --slave --vanilla --args pax4 pax6 < promoter_mapping_rate.R
+R --slave --vanilla --args pax4 pax6 < ./cage_tutorial/promoter_mapping_rate.R
 ```
 
 
