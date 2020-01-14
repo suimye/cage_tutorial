@@ -11,7 +11,7 @@ CAGE解析チュートリアル
 
 
 - 2020.01.10: update情報欄を作成、CAGEパイプラインへの実行パスを修正。フォルダ作成後に、FANTOMリファレンスのBEDファイルを移動させる行を追記。　　
--  
+- 2020.01.13: より高速なダウンローダー、fasterq-dumpを追記
 
 
 ## 事前準備　　
@@ -32,7 +32,7 @@ CAGE解析チュートリアル
 ### Data download and preparation
 解析テスト用のデータとリファレンスデータのダウンロード
 
-1. テストデータダウンロード
+1. テストデータダウンロード（鈍足）
 
 ```  
  vdb-dump  -I -f fastq DRR021905 >pax4_rep1.fq
@@ -43,6 +43,20 @@ CAGE解析チュートリアル
  vdb-dump  -I -f fastq DRR021910 >pax6_rep3.fq
 
 ```  
+
+2. テストデータダウンロード(圧倒的に高速)
+
+```
+fasterq-dump DRR021905 -o ./pax4_rep1.fq -e 12 -p
+fasterq-dump DRR021903 -o ./pax4_rep2.fq -e 12 -p
+fasterq-dump DRR021904 -o ./pax4_rep3.fq -e 12 -p
+fasterq-dump DRR021908 -o ./pax6_rep1.fq -e 12 -p
+fasterq-dump DRR021909 -o ./pax6_rep2.fq -e 12 -p
+fasterq-dump DRR021910 -o ./pax6_rep3.fq -e 12 -p
+
+```
+
+
 
 ダウンロードしたデータは、各種マッピングソフトウェアでマッピングを実行してください。　マッピング過程は割愛しますが、マッピング済みのBAMファイルは、[テストデータおよび解析済みデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)のフォルダの中にあるので、必要に応じてご利用ください。
 
