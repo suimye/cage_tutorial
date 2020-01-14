@@ -76,10 +76,9 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
 
 3. その他の準備するべきデータ
 
-hg19.genomeファイルをダウンロードしておく
+	- hg19.genomeファイルをダウンロードしておく
 
-- [テストデータおよび解析済みデータとその他の必要なデータ](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
-
+		- [こちら](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
 
   
 4. 解析用フォルダの作成  
