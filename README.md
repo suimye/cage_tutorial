@@ -47,12 +47,12 @@ CAGE解析チュートリアル
 2. テストデータダウンロード(圧倒的に高速)
 
 ```
-fasterq-dump DRR021905 -o ./pax4_rep1.fq -e 12 -p
-fasterq-dump DRR021903 -o ./pax4_rep2.fq -e 12 -p
-fasterq-dump DRR021904 -o ./pax4_rep3.fq -e 12 -p
-fasterq-dump DRR021908 -o ./pax6_rep1.fq -e 12 -p
-fasterq-dump DRR021909 -o ./pax6_rep2.fq -e 12 -p
-fasterq-dump DRR021910 -o ./pax6_rep3.fq -e 12 -p
+fasterq-dump DRR021905 -o pax4_rep1.fq -e 12 -p
+fasterq-dump DRR021903 -o pax4_rep2.fq -e 12 -p
+fasterq-dump DRR021904 -o pax4_rep3.fq -e 12 -p
+fasterq-dump DRR021908 -o pax6_rep1.fq -e 12 -p
+fasterq-dump DRR021909 -o pax6_rep2.fq -e 12 -p
+fasterq-dump DRR021910 -o pax6_rep3.fq -e 12 -p
 
 ```
 
