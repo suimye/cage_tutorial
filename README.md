@@ -1,7 +1,7 @@
 CAGE解析チュートリアル
 ====
 
-プロモータ発現テーブルを得るためのCAGE解析パイプラインを用意しています。RNAseqRecipe本のスクリプトをまとめたものとなりますので、書籍と異なるところがあります。解析プロセスを把握するために、本をよく読んで実施してください。はじめに、CAGEデータを各種アライメントソフトウェアでhg19リファレンスゲノムにマッピングしたデータ（BAMファイル）をご用意ください。用意が面倒な場合は繰り返し実験のない一部のBAMファイルとはなりますが、下記のグーグルドライブからダウンロードすることもできます。
+プロモータ発現テーブルを得るためのCAGE解析パイプラインを用意しています。RNAseqRecipe本のスクリプトをまとめたものとなりますので、書籍と異なるところがあります。解析プロセスを把握するために、本をよく読んで実施してください。はじめに、CAGEデータを各種アライメントソフトウェアでhg19リファレンスゲノムにマッピングしたデータ（BAMファイル）とリファレンスのfastaファイルをご用意ください。用意が面倒な場合は繰り返し実験のない一部のBAMファイルとはなりますが、下記のグーグルドライブからダウンロードすることもできます。
 
 #### 解析結果のデータや整形済みテストデータは、こちらからダウンロードすることができます。
 
@@ -76,9 +76,14 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
 
 3. その他の準備するべきデータ
 
-	- hg19.genomeファイルをダウンロードしておく
-
-		- [こちら](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
+	- hg19.fasta, hg19.genomeファイルを用意する
+		hg19.fastaから、ゲノムサイズのテキストファイルであるhg19.genomeを用意するには次のfaidxコマンドを利用するとすぐです。pipのインストールが必要です。
+		```
+		pip install --upgrade pip
+		pip install pyfaidx
+		faidx input.fasta -i chromsizes >hg19.genome
+		```
+	- [こちら](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
 
   
 4. 解析用フォルダの作成  
@@ -149,8 +154,8 @@ gitに登録していない場合は、gitのURLのサイトからZIP形式で�
 
 
 ### 2. enhancer callのために必要なBEDファイルを作成する
-bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）が存在するディレクトリ下で以下のshellスクリプトを実行すると、BED6形式のファイルが生成される。
-ただし、作業フォルダ内のbedGraphのファイル名の末尾は、.fw.bg, .rev.bgである必要がある。
+bedGraphファイル（ファイルの末尾がfw.bg, rev.bgのファイル）が存在するディレクトリ下で以下のshellスクリプトを実行すると、BED6形式のファイルが生成されます。
+ただし、作業フォルダ内のbedGraphのファイル名の末尾は、.fw.bg, .rev.bgである必要がある点に注意してください。
 
 ```
 sh ./cage_practice/make.bed6.from.bg.sh
