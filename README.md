@@ -77,13 +77,13 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
 3. その他の準備するべきデータ
 
 	- hg19.fasta, hg19.genomeファイルを用意する
-		hg19.fastaから、ゲノムサイズのテキストファイルであるhg19.genomeを用意するには次のfaidxコマンドを利用するとすぐです。pipのインストールが必要です。
+		リファレンスゲノムのファイルから、ゲノムサイズのテキストファイルであるhg19.genomeを用意するには次のfaidxコマンドを利用するとすぐです。pipのインストールが必要です。もしもpyfaidxを利用したくない場合はtutorialの保存庫のファイルhg19.genomeの中身を参照して、同様のファイルをリファレンスゲノムのファイルから生成することも現実的には簡単なので、トライしてみてください。
 		```
 		pip install --upgrade pip
 		pip install pyfaidx
-		faidx input.fasta -i chromsizes >hg19.genome
+		faidx hg19.fasta -i chromsizes >hg19.genome
 		```
-	- [こちら](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
+	- [tutorialのファイルはこちらを参照](https://drive.google.com/open?id=1UVryalUW7gGuNLC-rsnVR1ayZCkOqhI1)
 
   
 4. 解析用フォルダの作成  
