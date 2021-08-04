@@ -5,9 +5,13 @@ args <- commandArgs(TRUE)
 time_stamp <- Sys.Date()
 fl <- list.files(pattern=".ctss.txt")
 
+flag=0
 if(length(args)==2){
     gp1 =args[1]
     gp2 =args[2]
+    flag = 0
+}else if (args[1] == "none"){
+    flag = 1
 }else{
     stop
 }
@@ -30,12 +34,22 @@ rownames(df) <- rname
 
 # normalization step for CAGE tag counting.
 
-gp <- rep(0,length(fl))
-for(i in 1:length(unique(fl))){
-	gp[grep(args[i],fl)] <- i
-	#gp[grep(gp2,fl)] <- 2
+gp <- NULL
+if(flag==0){
+	gp <- rep(0,length(fl))
+	for(i in 1:length(unique(fl))){
+		gp[grep(args[i],fl)] <- i
+		#gp[grep(gp2,fl)] <- 2
+	}
+}else{
+	# if argument none was found. each labels are independent label.
+	gp <- seq(1,length(fl))
+
 }
+
+	
 size <- df[1,]
+
 
 # dgeL object construction
 d <- DGEList(counts=df[-1,], group=gp, lib.size=size)
@@ -61,9 +75,9 @@ label1_pos <- F5_promoter_count / 2
 label2_pos <- F5_promoter_count + other_region_count / 2
 
 
-pdf("cage.qcbarplot.pdf", width=10, height=10)
+pdf("cage.qcbarplot.pdf", width=15, height=10)
 	#par(mar=c(10,10,10,10))
-	par(mar=c(10,10,10,10))
+	par(mar=c(10,10,10,10),mai = c(1, 4, 2,2))
 	bp <- barplot(
 		barplot_df,
 		horiz=T,
