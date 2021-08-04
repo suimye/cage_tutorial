@@ -75,7 +75,7 @@ gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,
 3. その他の準備するべきデータ
 
 	- hg19.fasta, hg19.genomeファイルを用意する
-		リファレンスゲノムのファイルから、ゲノムサイズのテキストファイルであるhg19.genomeを用意するには次のfaidxコマンドを利用するとすぐです。pipのインストールが必要です。もしもpyfaidxを利用したくない場合はtutorialの保存庫のファイルhg19.genomeの中身を参照して、同様のファイルをリファレンスゲノムのファイルから生成することも現実的には簡単なので、トライしてみてください。
+		リファレンスゲノムのファイルから、各染色体の塩基数が書かれたテキストファイル（hg19.genome）を用意するには次のfaidxコマンドを利用します。pipのインストールが必要です。
 		```
 		pip install --upgrade pip
 		pip install pyfaidx
@@ -101,8 +101,8 @@ pwd          　　　　　　#現在のディレクトリを確認
 
 ## CAGEプロモーター解析パイプラインの実行
 
-### 1. パイプラインのshellスクリプトをダウンロードして、解析を実行する。
-引数は、BAMファイル、MAPQ（品質評価値）の閾値、CAGEクラスター領域のリファレンス領域（例ではプロモーター領域）を入力する。
+### 1. パイプラインのshellスクリプトをダウンロードして、解析を実行します。
+引数は、BAMファイル、MAPQ（品質評価値）の閾値、CAGEクラスター領域のリファレンス領域（例ではプロモーター領域）を入力します。
 
 ```
 git clone https://github.com/suimye/cage_tutorial.git
@@ -114,17 +114,18 @@ sh ./cage_tutorial/cage.counting.pipeline.b0.01.sh sample.bam 20 hg19.cage.promo
 
 ### 2. Rを用いたCAGEの品質評価の作図と発現テーブル作成  
 
-promoter_mapping_rate.Rは、先ほどのプロセスで生成されているctss.txtを末尾とするファイルを読み込んで発現データテーブルを作成する。ここで、作業フォルダに余計なctss.txtファイルがあるとエラーを起こすので注意すること。argsオプションの後には、比較する試験区のラベル（今回はpax4とpax6）をそれぞれ入力する。
+promoter_mapping_rate.Rは、先ほどのプロセスで生成されているctss.txtを末尾とするファイルを読み込んで発現データテーブルを作成するRスクリプトになります。作業フォルダに余計なctss.txtファイルがあるとエラーを起こすので注意してください。argsオプションの後には、比較する試験区のラベル（今回はpax4とpax6）をスペース区切りでそれぞれ入力します。また、--argsにnoneを指定する場合は、繰り返し実験などを考慮せずに、単純に発現データテーブルのみを作りたい時に利用します。
 
 ```
-R --slave --vanilla --args pax4 pax6 < ./cage_tutorial/promoter_mapping_rate.R
+R --slave --vanilla --args pax4 pax6 < promoter_mapping_rate.R #試験区が２つの場合、2群間のRLE正規化後のデータが生成される
+R --slave --vanilla --args none  < promoter_mapping_rate.R #のデータが生成される
 ```
 
 
 ### 3. 出力ファイル
 
 - cage_count.RData  
-CAGEタグをプロモーター別にカウントしたテーブルを含むRオブジェクト。edgeRライブラリーで解析可能なdgeLオブジェクトが保存されている。  
+CAGEタグをプロモーター別にカウントしたテーブルを含むRオブジェクト。edgeRライブラリーで解析可能なdgeLオブジェクトが保存されています。  
 - cage.count.txt  
 CAGEタグをプロモーター別の発現量のデータテーブル（log2対数変換済みのCPM値）。    
 - cage.qcbarplot.pdf  
@@ -138,7 +139,7 @@ CAGE解析の品質を評価するために、CAGEタグのプロモーターへ
 
 - CAGE解析パイプラインで得られたbedGraph ファイル  (ファイルの末尾がfw.bg, rev.bgのファイル)
 - マスクする領域のBEDファイル（FANTOM5のプロモーターリスト）: hg19.cage.promoter.robust.peak.190603.bed
-enhancer call時に、プロモーター領域のCAGEクラスターを同定しないようにマスクするためのファイルを用意しておく。ここでは、STEP１で作成したFANTOM5 phase2のプロモーター情報を用いる。
+enhancer call時に、プロモーター領域のCAGEクラスターを同定しないようにマスクするためのファイルを用意しておきます。ここでは、STEP１で作成したFANTOM5 phase2のプロモーター情報を用います。
 
 
 ### 1. enhancer callのスクリプトをダウンロード
