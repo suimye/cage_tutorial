@@ -69,6 +69,12 @@ FANTOM5のサイトから、CAGEのプロモーター情報についてダウン
 wget http://fantom.gsc.riken.jp/5/datafiles/latest/extra/CAGE_peaks/hg19.cage_peak_phase1and2combined_coord.bed.gz
 gzcat hg19.cage_peak_phase1and2combined_coord.bed.gz | awk '{OFS="\t"}{print $1,$2,$3,$4,$5,$6}' >hg19.cage.promoter.robust.peak.190603.bed
 
+#hg38の場合（非検証）
+wget https://fantom.gsc.riken.jp/5/datafiles/reprocessed/hg38_v9/extra/CAGE_peaks/hg38_liftover+new_CAGE_peaks_phase1and2.bed.gz
+gzcat hg38_liftover+new_CAGE_peaks_phase1and2.bed.gz| awk '{OFS="\t"}{print $1,$2,$3,$4,$5,$6}' >hg38.cage.promoter.peak.190603.bed
+
+
+
 
 ```  
 
